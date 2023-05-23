@@ -1,0 +1,42 @@
+.popup__field {
+  /* min-height: 26px; */
+  padding: 0;
+  margin-left: 22px;
+  margin-right: 22px;
+  margin-top: 27px;
+  outline: none;
+  border: none;
+  border-color: none;
+  border-bottom: 1px solid rgba(84, 84, 84, .2);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+}
+
+.popup__field:first-child {
+  margin-top: 0;
+}
+
+.popup__field:focus {
+  outline-style: none;
+}
+
+.popup__field:invalid:focus {
+  border-bottom: 1px solid #FF0000;
+}
+
+
+@media screen and (width>=779px) {
+  .popup__field {
+    /* margin-bottom: 18px; */
+    margin-left: 36px;
+    margin-right: 36px;
+
+  }
+
+  .popup__field:last-of-type {
+    margin-bottom: 0;
+    margin-top: 13px;
+  }
+}

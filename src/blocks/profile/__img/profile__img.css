@@ -1,0 +1,17 @@
+.profile__img {
+  display: block;
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+@media screen and (width>=1279px) {
+  .profile__img {
+    margin: 0;
+    margin-right: 30px;
+  }
+}

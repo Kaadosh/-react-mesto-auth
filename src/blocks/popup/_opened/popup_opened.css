@@ -1,0 +1,7 @@
+.popup_opened {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  transform: translateY(0) scale(100%);
+}

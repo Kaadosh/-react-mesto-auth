@@ -1,0 +1,44 @@
+.profile__add {
+  margin: 0 auto;
+  padding: 0px;
+  margin-top: 36px;
+  margin-bottom: 36px;
+  min-width: 282px;
+  min-height: 50px;
+  display: block;
+  text-align: center;
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
+}
+
+.profile__add:hover {
+  opacity: .6;
+}
+
+.profile__add::after {
+  content: " ";
+  background-image: url(../../../img/btn/Vector.svg);
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  background-size: contain;
+}
+
+@media screen and (width >=1023px) {
+  .profile__add {
+    min-width: 150px;
+    margin: 0;
+    margin-left: auto;
+    margin-top: 35px;
+  }
+
+  .profile__add::after {
+    width: 22px;
+    height: 22px;
+  }
+}

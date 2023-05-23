@@ -1,0 +1,10 @@
+.popup__confirm-container {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  min-height: 181px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}

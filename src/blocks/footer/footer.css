@@ -1,0 +1,23 @@
+ .footer {
+   margin-top: auto;
+   padding-top: 48px;
+   padding-bottom: 36px;
+   margin-left: 19px;
+   margin-right: 19px;
+   color: #545454;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 17px;
+ }
+
+ @media screen and (width >=779px) {
+   .footer {
+     margin-left: 200px;
+     margin-right: 200px;
+     padding-top: 66px;
+     padding-bottom: 60px;
+     font-size: 18px;
+     line-height: 22px;
+   }
+ }

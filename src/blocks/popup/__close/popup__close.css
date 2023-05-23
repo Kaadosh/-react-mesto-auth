@@ -1,0 +1,36 @@
+.popup__close {
+  border: none;
+  outline: none;
+  position: absolute;
+  right: 0;
+  top: -37px;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.popup__close:hover {
+  opacity: .6;
+}
+
+.popup__close::after {
+  content: " ";
+  background-image: url(../../../img/btn/CloseIcon.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
+  display: block;
+  background-size: contain;
+}
+
+@media screen and (width>=779px) {
+  .popup__close {
+    right: -39px;
+  }
+
+  .popup__close::after {
+    width: 32px;
+    height: 32px;
+  }
+}
