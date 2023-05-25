@@ -4,7 +4,7 @@ export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
-      "Content-Type": "aplplication/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       password: password,
@@ -22,7 +22,7 @@ export const authorize = (password, email) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
-      "Content-Type": "aplplication/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       password: password,
@@ -40,7 +40,7 @@ export const authorize = (password, email) => {
         localStorage.setItem("token", data.token);
         return data;
       } else {
-        return;
+        return Promise.reject("Error: No token found in response");
       }
     });
 };
@@ -49,7 +49,7 @@ export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      "Content-Type": "aplplication/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   })
