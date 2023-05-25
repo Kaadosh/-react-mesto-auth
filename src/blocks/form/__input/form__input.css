@@ -1,0 +1,30 @@
+.form__input {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 auto 28px;
+
+  width: 360px;
+  padding-bottom: 10px;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  background-color: transparent;
+  color: #fff;
+
+  border: none;
+  border-bottom: 2px solid white;
+  outline: none;
+}
+
+@media screen and (width <= 700px) {
+  .form__input {
+    margin: 0 auto 30px;
+    width: 260px;
+
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

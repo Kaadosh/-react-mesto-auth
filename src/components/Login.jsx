@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as auth from "../utils/auth";
 
-function Register({ openInfoTooltip, onError }) {
+function Login({ handleLogin, openInfoTooltip, onError }) {
   const [formValue, setFormValue] = useState({
     password: "",
     email: "",
@@ -22,13 +22,18 @@ function Register({ openInfoTooltip, onError }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const { password, email } = formValue;
+
+    if (!formValue.password || !formValue.email) {
+      return;
+    }
     auth
-      .register(password, email)
-      .then(() => {
-        onError(false);
-        openInfoTooltip(true);
-        navigate("/sign-in", { replace: true });
+      .authorize(formValue.password, formValue.email)
+      .then((data) => {
+        if (data.token) {
+          setFormValue({ password: "", email: "" });
+          handleLogin();
+          navigate("/", { replace: true });
+        }
       })
       .catch((err) => {
         onError(true);
@@ -38,8 +43,8 @@ function Register({ openInfoTooltip, onError }) {
   };
 
   return (
-    <section className="form">
-      <h1 className="form__title">Регистрация</h1>
+    <section className="form form-login">
+      <h1 className="form__title form__title-login">Вход</h1>
       <form onSubmit={handleSubmit} className="form__authentication">
         <input
           value={formValue.email}
@@ -47,7 +52,7 @@ function Register({ openInfoTooltip, onError }) {
           type="email"
           name="email"
           placeholder="Email"
-          className="form__input register__input_email"
+          className="form__input form__input-login"
         />
         <input
           value={formValue.password}
@@ -55,18 +60,14 @@ function Register({ openInfoTooltip, onError }) {
           type="password"
           name="password"
           placeholder="Пароль"
-          className="form__input register__input_password"
+          className="form__input form__input-login"
         />
         <button type="submit" className="form__button-submit">
-          Зарегистрироватся
+          Войти
         </button>
       </form>
-      <Link to="/sign-in" className="form__link">
-        {" "}
-        Уже зарегистрированы? Войти
-      </Link>
     </section>
   );
 }
 
-export default Register;
+export default Login;
