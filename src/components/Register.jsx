@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as auth from "../utils/auth";
 
-function Register({ openInfoTooltip, onError }) {
+function Register({ openInfoTooltip, onError, onEmailChange }) {
   const [formValue, setFormValue] = useState({
     password: "",
     email: "",
@@ -43,7 +43,7 @@ function Register({ openInfoTooltip, onError }) {
       <form onSubmit={handleSubmit} className="form__authentication">
         <input
           value={formValue.email}
-          onChange={handleChange}
+          onChange={onEmailChange}
           type="email"
           name="email"
           placeholder="Email"

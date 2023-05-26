@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./Headers";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -9,30 +10,29 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Route, Routes, useNavigate } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
-import { useState } from "react";
 import InfoTooltip from "./InfoTooltip";
 import * as auth from "../utils/auth";
-import { useEffect } from "react";
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -96,7 +96,7 @@ function App() {
     api
       .postCards(data)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards((prevCards) => [newCard, ...prevCards]);
         closeAllPopups();
       })
       .catch((err) => console.log(err));
@@ -118,22 +118,13 @@ function App() {
 
   function handleLogin() {
     setLoggedIn(true);
-    const token = localStorage.getItem("token");
-    if (token) {
-      auth
-        .checkToken(token)
-        .then((res) => {
-          setEmail(res.data.email);
-        })
-        .catch((err) => console.log(err));
-    }
   }
 
   useEffect(() => {
-    tokenCheck();
+    checkTokenValidity();
   }, []);
 
-  function tokenCheck() {
+  function checkTokenValidity() {
     const token = localStorage.getItem("token");
     if (token) {
       auth
@@ -149,24 +140,30 @@ function App() {
     }
   }
 
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.log(`Ошибка:${err}`);
-      });
-  }, []);
-  React.useEffect(() => {
-    api
-      .getCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useEffect(() => {
+    if (loggedIn) {
+      api
+        .getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка:${err}`);
+        });
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      api
+        .getCards()
+        .then((cards) => {
+          setCards(cards);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -198,6 +195,7 @@ function App() {
               <Register
                 openInfoTooltip={setIsTooltipOpen}
                 onError={setIsError}
+                onEmailChange={handleEmailChange}
               />
             }
           />
